@@ -1,0 +1,51 @@
+# Python cache and bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Packaging and build artifacts
+*.egg-info/
+build/
+dist/
+*.egg
+
+# Test, coverage, and type-check caches
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+.tox/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Project-generated outputs
+
+logs/
+*.log
+
+# Environment variables and local secrets
+.env
+.env.*
+*.pem
+*.key
+project-*.json
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Microsoft Office temporary lock files
+~$*
+.~lock.*

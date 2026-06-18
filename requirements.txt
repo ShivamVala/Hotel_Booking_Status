@@ -1,0 +1,16 @@
+pandas 
+numpy
+google-cloud-storage
+scikit-learn
+matplotlib
+pyyaml
+statsmodels
+xgboost 
+lightgbm
+imbalanced-learn
+mlflow
+joblib
+fastapi
+uvicorn
+jinja2
+python-multipart
