@@ -22,22 +22,10 @@ pipeline {
             }
         }
 
-        stage('Install System Dependencies') {
-            steps {
-                script {
-                    echo 'Installing system dependencies............'
-                    sh '''
-                        apt-get update -y
-                        apt-get install -y python3-venv python3-pip
-                    '''
-                }
-            }
-        }
-
         stage('Setting up Virtual Environment and Installing dependencies') {
             steps {
                 script {
-                    echo 'Setting up Virtual Environment and Installing dependencies............'
+                    echo 'Setting up Virtual Environment............'
                     sh '''
                         python3 -m venv ${VENV_DIR}
                         . ${VENV_DIR}/bin/activate
@@ -48,5 +36,4 @@ pipeline {
             }
         }
     }
-
 }
