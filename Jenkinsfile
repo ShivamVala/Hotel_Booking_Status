@@ -21,13 +21,25 @@ pipeline {
                 }
             }
         }
-        // ✅ Second stage is now INSIDE stages{} — brace was misplaced before
+
+        stage('Install System Dependencies') {
+            steps {
+                script {
+                    echo 'Installing system dependencies............'
+                    sh '''
+                        apt-get update -y
+                        apt-get install -y python3-venv python3-pip
+                    '''
+                }
+            }
+        }
+
         stage('Setting up Virtual Environment and Installing dependencies') {
             steps {
                 script {
                     echo 'Setting up Virtual Environment and Installing dependencies............'
                     sh '''
-                        python -m venv ${VENV_DIR}
+                        python3 -m venv ${VENV_DIR}
                         . ${VENV_DIR}/bin/activate
                         pip install --upgrade pip
                         pip install -e .
@@ -35,6 +47,6 @@ pipeline {
                 }
             }
         }
-    } // ✅ This closes stages{}
+    }
 
-} // ✅ This closes pipeline{}
+}
