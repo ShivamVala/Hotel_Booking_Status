@@ -5,7 +5,6 @@ scikit-learn
 matplotlib
 pyyaml
 statsmodels
-xgboost 
 lightgbm
 imbalanced-learn
 mlflow
