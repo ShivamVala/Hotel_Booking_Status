@@ -1,22 +1,26 @@
 import joblib
 import numpy as np
- 
+
 from fastapi import FastAPI, Form, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
- 
+from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
+
 from config.paths_config import MODEL_OUTPUT_PATH
- 
+
 app = FastAPI(title="Hotel Reservation Prediction")
- 
+
+# Fixes Mixed Content issue on Cloud Run — trusts HTTPS proxy headers
+app.add_middleware(ProxyHeadersMiddleware, trusted_hosts="*")
+
 app.mount("/static", StaticFiles(directory="static"), name="static")
- 
+
 templates = Jinja2Templates(directory="templates")
- 
+
 loaded_model = joblib.load(MODEL_OUTPUT_PATH)
- 
- 
+
+
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
     return templates.TemplateResponse(
@@ -24,8 +28,8 @@ async def home(request: Request):
         name="index.html",
         context={"prediction": None}
     )
- 
- 
+
+
 @app.post("/", response_class=HTMLResponse)
 async def predict(
     request: Request,
@@ -40,7 +44,7 @@ async def predict(
     type_of_meal_plan: int = Form(...),
     room_type_reserved: int = Form(...)
 ):
- 
+
     features = np.array([[
         lead_time,
         no_of_special_request,
@@ -53,9 +57,9 @@ async def predict(
         type_of_meal_plan,
         room_type_reserved
     ]])
- 
+
     prediction = loaded_model.predict(features)[0]
- 
+
     return templates.TemplateResponse(
         request=request,
         name="index.html",
