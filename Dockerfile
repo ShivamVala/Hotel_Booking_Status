@@ -24,7 +24,7 @@ RUN pip install --no-cache-dir -e .
 RUN python pipeline/training_pipeline.py
 
 # Expose the port that FastAPI will run on
-EXPOSE 8000
+EXPOSE 8080
 
 # Command to run the FastAPI app with uvicorn
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8080"]
